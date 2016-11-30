@@ -66,11 +66,12 @@ class DockerHTTPClient(client.Client):
         return self.attach(container_id, 1, 1, 0, 1)
 
 class Containers:
-    def __init__(self, container_id, image, status, ip, port):
+    def __init__(self, container_id, image, status, startedat, ip, port):
         self.id = container_id
         self.container_id = container_id
         self.image = image
         self.status = status
+        self.startedat = startedat
         self.ip = ip
         self.port = port
 
@@ -119,6 +120,7 @@ class DockerDriver:
                 container_id=info['Config'].get('Hostname'),
                 image=info['Config'].get('image'),
                 status=info['State'].get('status'),
+                startedat=info['State'].get('startedat'),
                 ip=info['networksettings'].get('ipaddress'),
                 port=info['networksettings'].get('ports'))
 

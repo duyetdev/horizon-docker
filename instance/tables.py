@@ -43,6 +43,7 @@ class InstancesTable(tables.DataTable):
     	link="horizon:docker:instance:container_detail")
     container_image = tables.Column("image", verbose_name=_("IMAGE"))
     container_status = tables.Column('status', verbose_name=_("Status"))
+    container_startedat = tables.Column('startedat', verbose_name=_("Started at"))
     container_ip = tables.Column('ip', verbose_name=_("IP"))
     container_port = tables.Column('port', verbose_name=_("Ports"))
 
