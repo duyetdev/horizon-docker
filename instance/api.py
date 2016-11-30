@@ -129,11 +129,10 @@ class DockerDriver:
         return self.docker.containers.start(docker_name, detach=True)
 
     def container_log(self, container_id):
-        try:
-            print 'docker::api -> Get log of %s' % container_id
-            logs = self.docker.containers.logs(container=container_id, stream=False)
-            print '--------------- logs: ', logs 
-
-            return logs
-        except:
-            return ''
+        # try:
+        print 'docker::api -> Get log of %s' % container_id
+        logs = self.docker.logs(container=container_id, stream=False)
+        print '--------------- logs'
+        return logs
+        # except:
+        #     return ''

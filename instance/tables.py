@@ -39,7 +39,8 @@ class RemoveContainerAction(tables.LinkAction):
         return instance.status in ("exited", "running")
 
 class InstancesTable(tables.DataTable):
-    container_id = tables.Column("container_id", verbose_name=_("Instance ID"))
+    container_id = tables.Column("container_id", verbose_name=_("Instance ID"), 
+    	link="horizon:docker:instance:container_detail")
     container_image = tables.Column("image", verbose_name=_("IMAGE"))
     container_status = tables.Column('status', verbose_name=_("Status"))
     container_ip = tables.Column('ip', verbose_name=_("IP"))
