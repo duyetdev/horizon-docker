@@ -9,20 +9,21 @@ from django.utils.translation import ugettext_lazy as _
 from horizon import tabs
 from horizon import exceptions
 from horizon import forms
+from horizon import tables
 
 from horizon.utils import memoized
 
 from openstack_dashboard import api
 
 
-class IndexView(views.APIView):
+class IndexView(tables.DataTableView):
     # A very simple class-based view...
     table_class = project_tables.InstancesTable
     template_name = 'docker/instance/index.html'
 
-    def get_data(self, request, context, *args, **kwargs):
+    def get_data(self):
         # Add data to the context here...
-        return context
+        return []
 
 class CreateContainerView(forms.ModalFormView):
     form_class = project_forms.CreateContainer

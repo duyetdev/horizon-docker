@@ -7,10 +7,10 @@ class CreateContainerAction(tables.LinkAction):
     verbose_name = _("Create Container")
     url = "horizon:docker:instance:create_container"
     classes = ("ajax-modal",)
-    icon = "camera"
+    # icon = "camera"
 
-    def allowed(self, request, instance=None):
-        return True
+    # def allowed(self, request, instance=None):
+    #     return True
         # return instance.status in ("ACTIVE") \
         #     and not is_deleting(instance)
 
@@ -20,10 +20,11 @@ class MyFilterAction(tables.FilterAction):
 
 
 class InstancesTable(tables.DataTable):
-    container_id = tables.Column("instance_id", verbose_name=_("ID"))
+    container_id = tables.Column("instance_id", verbose_name=_("Instance ID"))
+    container_image = tables.Column("image", verbose_name=_("IMAGE"))
     container_name = tables.Column("name", verbose_name=_("Name"))
     container_status = tables.Column('status', verbose_name=_("Status"))
-    container_ip = tables.Column('ip', verbose_name=_("IP"))
+    container_port = tables.Column('ip', verbose_name=_("Ports"))
 
     class Meta:
         name = "instances"
