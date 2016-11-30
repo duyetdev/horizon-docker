@@ -105,6 +105,9 @@ class DockerDriver:
                 res.append(info['Config'].get('Hostname'))
         return res
 
+    def get_container(self, container_id):
+    	self.docker.containers.get(container_id)
+
     def list_instances_table(self):
         res = []
         for container in self.docker.containers(all=True):
@@ -127,7 +130,7 @@ class DockerDriver:
 
     def container_log(self, container_id):
         try:
-            container = client.containers.get(container_id)
-            return container.logs()
+            print 'Get log of %s' % container_id
+            return self.docker.containers.get(container_id).logs(stream=False)
         except:
             return ''

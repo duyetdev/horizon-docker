@@ -14,7 +14,6 @@ class CreateContainer(forms.SelfHandlingForm):
     docker_number = forms.IntegerField(max_value=20, label=_("Number of Instance"))
 
     def handle(self, request, data):
-        # return True
         try:
             print 'Create docker %s with %s instance' % (data['docker_image'], data['docker_number'])
             docker_driver.container_create(data['docker_image'])
