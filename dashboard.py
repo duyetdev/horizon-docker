@@ -6,7 +6,7 @@ import horizon
 class DockerDashboardGroup(horizon.PanelGroup):
 	slug = "dockergroup"
 	name = _("Docker")
-	panels = ('monitor',)
+	panels = ('instance', 'monitor',)
 
 class DockerDashboard(horizon.Dashboard):
 	name = _("Docker")
