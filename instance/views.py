@@ -31,7 +31,7 @@ class IndexView(tables.DataTableView):
     	print '-============================'
 
         # Add data to the context here...
-        return []
+        return list_instances
 
 class CreateContainerView(forms.ModalFormView):
     form_class = project_forms.CreateContainer
