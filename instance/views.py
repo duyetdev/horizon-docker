@@ -24,11 +24,7 @@ class IndexView(tables.DataTableView):
     template_name = 'docker/instance/index.html'
 
     def get_data(self):
-
     	list_instances = docker_driver.list_instances_table()
-    	print '-============================'
-    	print list_instances
-    	print '-============================'
 
         # Add data to the context here...
         return list_instances

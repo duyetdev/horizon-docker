@@ -14,12 +14,12 @@ class CreateContainer(forms.SelfHandlingForm):
     docker_number = forms.IntegerField(max_value=20, label=_("Number of Instance"))
 
     def handle(self, request, data):
-        return True
-        # try:
-        #     snapshot = api.nova.snapshot_create(request,
-        #                                         data['instance_id'],
-        #                                         data['name'])
-        #     return snapshot
-        # except Exception:
-        #     exceptions.handle(request,
-        #                       _('Unable to create snapshot.'))
+        # return True
+        try:
+            print 'Create docker %s with %s instance' % (data['docker_image'], data['docker_number'])
+            docker_driver.container_create(data['docker_image'])
+
+            return True
+        except Exception:
+            exceptions.handle(request,
+                              _('Unable to create container.'))

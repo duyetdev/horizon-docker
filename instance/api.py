@@ -97,7 +97,6 @@ class DockerDriver:
         res = []
         for container in self.docker.containers(all=True):
             info = self.docker.inspect_container(container['id'])
-            print info, '====================================='
             if not info:
                 continue
             if inspect:
@@ -114,11 +113,21 @@ class DockerDriver:
                 continue
             
             container_row = Containers(
-            	container_id=info['Config'].get('Hostname'),
-            	image=info['Config'].get('image'),
-            	status=info['State'].get('status'),
-            	ip=info['networksettings'].get('ipaddress'),
-            	port=info['networksettings'].get('ports'))
+                container_id=info['Config'].get('Hostname'),
+                image=info['Config'].get('image'),
+                status=info['State'].get('status'),
+                ip=info['networksettings'].get('ipaddress'),
+                port=info['networksettings'].get('ports'))
 
             res.append(container_row)
         return res
+
+    def container_create(self, docker_name):
+        return self.docker.containers.start(docker_name, detach=True)
+
+    def container_log(self, container_id):
+        try:
+            container = client.containers.get(container_id)
+            return container.logs()
+        except:
+            return ''
