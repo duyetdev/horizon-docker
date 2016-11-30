@@ -21,6 +21,7 @@ class LogTab(tabs.Tab):
     preload = False
 
     def get_context_data(self, request):
+    	print '=================== self.tab_group.kwargs', self.tab_group.kwargs
         instance_id = self.tab_group.kwargs['instance_id']
         try:
         	# get log for instance_id

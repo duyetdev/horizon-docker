@@ -41,7 +41,7 @@ class CreateContainerView(forms.ModalFormView):
 
 class ContainerDetailView(tabs.TabView):
     tab_group_class = project_tabs.ContainerDetailTabs
-    template_name = 'docker/instance/detail.html'
+    template_name = 'horizon/common/_detail.html'
     success_url = reverse_lazy("horizon:docker:instance:container_detail")
     redirect_url = reverse_lazy("horizon:docker:instance:index")
     
@@ -51,7 +51,7 @@ class ContainerDetailView(tabs.TabView):
             return docker_driver.get_container(self.kwargs["instance_id"])
         except Exception:
             exceptions.handle(self.request,
-                              _("Unable to retrieve container."))
+                              _("Unable to retrieve container ~~~"))
 
     def get_initial(self):
         return {"instance_id": self.kwargs["instance_id"]}
@@ -60,8 +60,9 @@ class ContainerDetailView(tabs.TabView):
         context = super(ContainerDetailView, self).get_context_data(**kwargs)
         instance_id = self.kwargs['instance_id']
         context['instance_id'] = instance_id
-        context['container'] = self.get_container()
-        context['instance'] = context['container']
+        context['test_duyetdev'] = True
+        # context['container'] = self.get_container()
+        # context['instance'] = context['container']
         # context['submit_url'] = reverse(self.submit_url, args=[instance_id])
         return context
 
