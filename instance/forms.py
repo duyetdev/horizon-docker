@@ -6,6 +6,8 @@ from horizon import forms
 
 from openstack_dashboard import api
 
+from openstack_dashboard.dashboards.docker.instance import api
+docker_driver = api.DockerDriver()
 
 class CreateContainer(forms.SelfHandlingForm):
     docker_image = forms.CharField(max_length=250, label=_("Docker Image"), required = True)

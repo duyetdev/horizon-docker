@@ -15,6 +15,8 @@ from horizon.utils import memoized
 
 from openstack_dashboard import api
 
+from openstack_dashboard.dashboards.docker.instance import api
+docker_driver = api.DockerDriver()
 
 class IndexView(tables.DataTableView):
     # A very simple class-based view...
@@ -22,8 +24,14 @@ class IndexView(tables.DataTableView):
     template_name = 'docker/instance/index.html'
 
     def get_data(self):
+
+    	list_instances = docker_driver.list_instances_table()
+    	print '-============================'
+    	print list_instances
+    	print '-============================'
+
         # Add data to the context here...
-        return []
+        return list_instances
 
 class CreateContainerView(forms.ModalFormView):
     form_class = project_forms.CreateContainer

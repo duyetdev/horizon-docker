@@ -1,12 +1,14 @@
 from django.utils.translation import ugettext_lazy as _
 
 from horizon import tables
+from openstack_dashboard import policy
 
 class CreateContainerAction(tables.LinkAction):
     name = "container"
     verbose_name = _("Create Container")
     url = "horizon:docker:instance:create_container"
-    classes = ("ajax-modal",)
+    classes = ("ajax-modal", "btn-primary", )
+
     # icon = "camera"
 
     # def allowed(self, request, instance=None):
@@ -29,5 +31,6 @@ class InstancesTable(tables.DataTable):
     class Meta:
         name = "instances"
         verbose_name = _("Instances")
-        table_actions = (MyFilterAction,)
-        row_actions = (CreateContainerAction,)
+        table_actions = (MyFilterAction, CreateContainerAction, )
+        # table_actions_menu = (CreateContainerAction, )
+        
