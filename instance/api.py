@@ -65,6 +65,13 @@ class DockerHTTPClient(client.Client):
     def get_container_logs(self, container_id):
         return self.attach(container_id, 1, 1, 0, 1)
 
+class Containers:
+    def __init__(self, container_id, image, status, ip, port):
+        self.container_id = container_id
+        self.image = image
+        self.status = status
+        self.ip = ip
+        self.port = port
 
 class DockerDriver:
     def __init__(self):
@@ -105,14 +112,12 @@ class DockerDriver:
             if not info:
                 continue
             
-            container_row = {
-                "id": info['Config'].get('Hostname'),
-                "hostname": info['Config'].get('Hostname'), 
-                "image": info['Config'].get('image'), 
-                "name": info['Config'].get('image'), 
-                "status": 'N/A', 
-                "port": 'N/A', 
-            }
+            container_row = Containers(
+            	container_id=info['Config'].get('Hostname'),
+            	image=info['Config'].get('image'),
+            	status='N/A',
+            	ip='N/A',
+            	port='N/A')
 
             res.append(container_row)
         return res

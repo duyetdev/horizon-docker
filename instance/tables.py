@@ -22,11 +22,11 @@ class MyFilterAction(tables.FilterAction):
 
 
 class InstancesTable(tables.DataTable):
-    container_id = tables.Column("instance_id", verbose_name=_("Instance ID"))
+    container_id = tables.Column("container_id", verbose_name=_("Instance ID"))
     container_image = tables.Column("image", verbose_name=_("IMAGE"))
-    container_name = tables.Column("name", verbose_name=_("Name"))
     container_status = tables.Column('status', verbose_name=_("Status"))
-    container_port = tables.Column('ip', verbose_name=_("Ports"))
+    container_ip = tables.Column('ip', verbose_name=_("IP"))
+    container_port = tables.Column('port', verbose_name=_("Ports"))
 
     class Meta:
         name = "instances"
