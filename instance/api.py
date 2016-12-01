@@ -66,11 +66,12 @@ class DockerHTTPClient(client.Client):
         return self.attach(container_id, 1, 1, 0, 1)
 
 class Containers:
-    def __init__(self, container_id, image, status, ip, port):
+    def __init__(self, container_id, image, status, startedat, ip, port):
         self.id = container_id
         self.container_id = container_id
         self.image = image
         self.status = status
+        self.startedat = startedat
         self.ip = ip
         self.port = port
 
@@ -105,6 +106,9 @@ class DockerDriver:
                 res.append(info['Config'].get('Hostname'))
         return res
 
+    def get_container(self, container_id):
+    	self.docker.containers.get(container_id)
+
     def list_instances_table(self):
         res = []
         for container in self.docker.containers(all=True):
@@ -116,6 +120,7 @@ class DockerDriver:
                 container_id=info['Config'].get('Hostname'),
                 image=info['Config'].get('image'),
                 status=info['State'].get('status'),
+                startedat=info['State'].get('startedat'),
                 ip=info['networksettings'].get('ipaddress'),
                 port=info['networksettings'].get('ports'))
 
@@ -126,8 +131,10 @@ class DockerDriver:
         return self.docker.containers.start(docker_name, detach=True)
 
     def container_log(self, container_id):
-        try:
-            container = client.containers.get(container_id)
-            return container.logs()
-        except:
-            return ''
+        # try:
+        print 'docker::api -> Get log of %s' % container_id
+        logs = self.docker.logs(container=container_id, stream=False)
+        print '--------------- logs'
+        return logs
+        # except:
+        #     return ''
