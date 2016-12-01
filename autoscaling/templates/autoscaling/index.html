@@ -3,16 +3,16 @@
 {% block title %}{% trans "Docker Manager" %}{% endblock %}
 
 {% block page_header %}
-    {% include "horizon/common/_page_header.html" with title=_("Docker Manager") %}
+    {% include "horizon/common/_page_header.html" with title=_("Auto Scaling") %}
 {% endblock page_header %}
 
 {% block main %}
 	<h1>Usage</h1>
 	<div class="row">
 		<div class="col-md-2">
-				<form method="" method="GET">
+				<form method="GET" action="">
 					<div class="input-group">
-						<select class="form-control">
+						<select class="form-control" name="vm">
 						{% for vm in vm_list %}
 							<option value="{{vm}}" {% if vm == current_vm %}selected="selected"{% endif %}>{{vm}}</option>
 						{% endfor %}

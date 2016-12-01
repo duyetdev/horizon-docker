@@ -30,6 +30,8 @@ class AddRuleForm(forms.SelfHandlingForm):
 
     upper_threshold = forms.IntegerField(max_value=100, min_value=50, label=_("Upper threshold"), required = True)
     lower_threshold = forms.IntegerField(max_value=50, min_value=0, label=_("Lower threshold"), required = True)
+    node_up = forms.IntegerField(max_value=10, min_value=0, label=_("Node up"), required = True)
+    node_down = forms.IntegerField(max_value=10, min_value=0, label=_("Node down"), required = True)
     
     def handle(self, request, data):
         try:

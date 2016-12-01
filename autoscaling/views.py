@@ -40,9 +40,8 @@ class IndexView(tables.DataTableView):
         #     context[self.context_object_name] = self.table
 
         context['vm_list'] = ( 'vm-olp1', 'vm-olp2', 'vm-olp3' )
-        if hasattr(kwargs, 'vm_id'):
-            context['current_vm'] = kwargs['vm_id']
-        else:
+        context['current_vm'] = self.request.GET.get('vm', None)
+        if not context['current_vm']:
             context['current_vm'] = context['vm_list'][0] \
                 if len(context['vm_list']) > 0 else False
 
