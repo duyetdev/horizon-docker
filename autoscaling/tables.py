@@ -3,22 +3,8 @@ from django.utils.translation import ugettext_lazy as _
 from horizon import tables
 from openstack_dashboard import policy
 
-class CreateContainerAction(tables.LinkAction):
-    name = "container"
-    verbose_name = _("Create Container")
-    url = "horizon:docker:autoscaling:create_container"
-    classes = ("ajax-modal", "btn-primary", )
-
-    # icon = "camera"
-
-    # def allowed(self, request, instance=None):
-    #     return True
-        # return instance.status in ("ACTIVE") \
-        #     and not is_deleting(instance)
-
-
-class MyFilterAction(tables.FilterAction):
-    name = "dockerfilter"
+class RuleFilterAction(tables.FilterAction):
+    name = "rulefilter"
 
 class StopContainerAction(tables.LinkAction):
     name = "stop_container"
@@ -66,6 +52,5 @@ class ScalingRuleTable(tables.DataTable):
     class Meta:
         name = "scaling-rules"
         verbose_name = _("Scaling Rules")
-        table_actions = (MyFilterAction, AddRuleAction, DeleteRuleAction )
-        # table_actions_menu = (CreateContainerAction, )
+        table_actions = (RuleFilterAction, AddRuleAction, DeleteRuleAction )
         row_actions = (DeleteRuleAction, )
