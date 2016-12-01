@@ -6,7 +6,7 @@ from horizon import forms
 
 from openstack_dashboard import api
 
-from openstack_dashboard.dashboards.docker.instance import api
+from openstack_dashboard.dashboards.docker.autoscaling import api
 docker_driver = api.DockerDriver()
 
 class CreateContainer(forms.SelfHandlingForm):

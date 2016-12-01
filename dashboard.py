@@ -4,15 +4,15 @@ import horizon
 
 
 class DockerDashboardGroup(horizon.PanelGroup):
-	slug = "dockergroup"
-	name = _("Docker")
-	panels = ('instance', 'monitor',)
+	slug = "autoscaling-group"
+	name = _("Auto Scaling Group")
+	panels = ('autoscaling', 'monitor',)
 
 class DockerDashboard(horizon.Dashboard):
-	name = _("Docker")
-	slug = "docker"
+	name = _("Container")
+	slug = "container"
 	panels = (DockerDashboardGroup,)
-	default_panel = 'monitor'
+	default_panel = 'autoscaling'
 
 	def can_access(self, context):
 		return True
