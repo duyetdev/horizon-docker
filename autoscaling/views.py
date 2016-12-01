@@ -17,9 +17,6 @@ from horizon.utils import memoized
 
 from openstack_dashboard import api
 
-from openstack_dashboard.dashboards.docker.autoscaling import api
-docker_driver = api.DockerDriver()
-
 class IndexView(tables.DataTableView):
     # A very simple class-based view...
     table_class = project_tables.ScalingRuleTable
@@ -39,7 +36,24 @@ class IndexView(tables.DataTableView):
         # if hasattr(self, "table"):
         #     context[self.context_object_name] = self.table
 
-        context['vm_list'] = ( 'vm-olp1', 'vm-olp2', 'vm-olp3' )
+        search_opts = {'paginate': False}
+        try:
+            instances, self._more = api.nova.server_list(
+                self.request,
+                search_opts=search_opts)
+        except Exception:
+            self._more = False
+            instances = []
+            exceptions.handle(self.request,
+                              _('Unable to retrieve instances.'))
+            print '====================', instances
+        context['vm_list'] = []
+        if instances:
+            for instance in instances:
+                print type(instance), '=================+++++++++++++++++++++++++'
+                context['vm_list'].append({'id': instance.key_name, 'name': instance.name})
+
+        # context['vm_list'] = ( 'vm-olp1', 'vm-olp2', 'vm-olp3' )
         context['current_vm'] = self.request.GET.get('vm', None)
         if not context['current_vm']:
             context['current_vm'] = context['vm_list'][0] \

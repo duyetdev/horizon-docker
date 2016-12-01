@@ -14,7 +14,7 @@
 					<div class="input-group">
 						<select class="form-control" name="vm">
 						{% for vm in vm_list %}
-							<option value="{{vm}}" {% if vm == current_vm %}selected="selected"{% endif %}>{{vm}}</option>
+							<option value="{{vm.id}}" {% if vm.id == current_vm %}selected="selected"{% endif %}>{{vm.name}}</option>
 						{% endfor %}
 						</select>
 						<div class="input-group-btn">
