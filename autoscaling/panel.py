@@ -8,4 +8,4 @@ class AutoScalingPanel(horizon.Panel):
     slug = "autoscaling"
 
 
-dashboard.DockerDashboard.register(AutoScalingPanel)
+dashboard.ContainerDashboard.register(AutoScalingPanel)

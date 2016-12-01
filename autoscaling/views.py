@@ -23,7 +23,7 @@ docker_driver = api.DockerDriver()
 class IndexView(tables.DataTableView):
     # A very simple class-based view...
     table_class = project_tables.ScalingRuleTable
-    template_name = 'docker/autoscaling/index.html'
+    template_name = 'container/autoscaling/index.html'
 
     def get_data(self):
         list_instances = []
@@ -34,13 +34,37 @@ class IndexView(tables.DataTableView):
         # Add data to the context here...
         return list_instances
 
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        # if hasattr(self, "table"):
+        #     context[self.context_object_name] = self.table
+
+        context['vm_list'] = ( 'vm-olp1', 'vm-olp2', 'vm-olp3' )
+        if hasattr(kwargs, 'vm_id'):
+            context['current_vm'] = kwargs['vm_id']
+        else:
+            context['current_vm'] = context['vm_list'][0] \
+                if len(context['vm_list']) > 0 else False
+
+
+        return context
+
 class CreateContainerView(forms.ModalFormView):
     form_class = project_forms.CreateContainer
     template_name = 'docker/autoscaling/create_container.html'
     modal_id = "create_container_modal"
     modal_header = _("Create Container")
-    submit_label = _("Create Cotainer")	
+    submit_label = _("Create Cotainer") 
     success_url = reverse_lazy('horizon:docker:autoscaling:index')
+
+
+class AddRuleView(forms.ModalFormView):
+    form_class = project_forms.AddRuleForm
+    template_name = 'container/autoscaling/add_rule.html'
+    modal_id = "add_rule_modal"
+    modal_header = _("Add rule")
+    submit_label = _("Add rule")	
+    success_url = reverse_lazy('horizon:container:autoscaling:index')
 
 # class ContainerDetailView(tabs.TabView):
 #     tab_group_class = project_tabs.ContainerDetailTabs

@@ -29,6 +29,24 @@ class StopContainerAction(tables.LinkAction):
     def allowed(self, request, instance=None):
         return instance.status in ("running")
 
+class AddRuleAction(tables.LinkAction):
+    name = "add_rule"
+    verbose_name = _("Add rule")
+    url = "horizon:container:autoscaling:add_rule"
+    classes = ("ajax-modal", "btn",)
+
+    def allowed(self, request, instance=None):
+        return True
+
+class DeleteRuleAction(tables.LinkAction):
+    name = "delete_rule"
+    verbose_name = _("Delete rule")
+    url = "horizon:container:autoscaling:delete_rule"
+    classes = ("ajax-modal", "btn",)
+
+    def allowed(self, request, instance=None):
+        return True
+
 class RemoveContainerAction(tables.LinkAction):
     name = "remove_container"
     verbose_name = _("Delete")
@@ -37,22 +55,6 @@ class RemoveContainerAction(tables.LinkAction):
 
     def allowed(self, request, instance=None):
         return instance.status in ("exited", "running")
-
-class InstancesTable(tables.DataTable):
-    container_id = tables.Column("container_id", verbose_name=_("Instance ID"), 
-        link="horizon:docker:autoscaling:container_detail")
-    container_image = tables.Column("image", verbose_name=_("IMAGE"))
-    container_status = tables.Column('status', verbose_name=_("Status"))
-    container_startedat = tables.Column('startedat', verbose_name=_("Started at"))
-    container_ip = tables.Column('ip', verbose_name=_("IP"))
-    container_port = tables.Column('port', verbose_name=_("Ports"))
-
-    class Meta:
-        name = "instances"
-        verbose_name = _("Instances")
-        table_actions = (MyFilterAction, CreateContainerAction, )
-        # table_actions_menu = (CreateContainerAction, )
-        row_actions = (StopContainerAction, RemoveContainerAction, )
 
 class ScalingRuleTable(tables.DataTable):
     metric = tables.Column('metric', verbose_name=_("Metric"))
@@ -64,6 +66,6 @@ class ScalingRuleTable(tables.DataTable):
     class Meta:
         name = "scaling-rules"
         verbose_name = _("Scaling Rules")
-        table_actions = (MyFilterAction, CreateContainerAction, )
+        table_actions = (MyFilterAction, AddRuleAction, DeleteRuleAction )
         # table_actions_menu = (CreateContainerAction, )
-        row_actions = (StopContainerAction, RemoveContainerAction, )
+        row_actions = (DeleteRuleAction, )

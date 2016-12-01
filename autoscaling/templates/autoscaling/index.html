@@ -7,5 +7,25 @@
 {% endblock page_header %}
 
 {% block main %}
+	<h1>Usage</h1>
+	<div class="row">
+		<div class="col-md-2">
+				<form method="" method="GET">
+					<div class="input-group">
+						<select class="form-control">
+						{% for vm in vm_list %}
+							<option value="{{vm}}" {% if vm == current_vm %}selected="selected"{% endif %}>{{vm}}</option>
+						{% endfor %}
+						</select>
+						<div class="input-group-btn">
+							<button class="btn btn-default">{% trans "Filter" %}</button>
+						</div>
+					</div>
+				</form>
+		</div>
+	</div>
+
+	 {% include "container/autoscaling/_auto_scaling_metric_chart.html" %}
+
     {{ table.render }}
 {% endblock %}

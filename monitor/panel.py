@@ -8,4 +8,4 @@ class DockerMonitorPanel(horizon.Panel):
     slug = "monitor"
 
 
-dashboard.DockerDashboard.register(DockerMonitorPanel)
+dashboard.ContainerDashboard.register(DockerMonitorPanel)
